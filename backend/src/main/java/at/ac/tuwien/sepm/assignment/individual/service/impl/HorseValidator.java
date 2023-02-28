@@ -39,4 +39,8 @@ public class HorseValidator {
     }
   }
 
+  public void validateForCreate(HorseDetailDto horse){
+    LOG.trace("validateForCreate({})", horse);
+  }
+
 }

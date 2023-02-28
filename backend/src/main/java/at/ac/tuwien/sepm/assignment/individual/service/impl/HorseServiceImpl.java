@@ -4,10 +4,7 @@ import at.ac.tuwien.sepm.assignment.individual.dto.HorseDetailDto;
 import at.ac.tuwien.sepm.assignment.individual.dto.HorseListDto;
 import at.ac.tuwien.sepm.assignment.individual.dto.OwnerDto;
 import at.ac.tuwien.sepm.assignment.individual.entity.Horse;
-import at.ac.tuwien.sepm.assignment.individual.exception.ConflictException;
-import at.ac.tuwien.sepm.assignment.individual.exception.FatalException;
-import at.ac.tuwien.sepm.assignment.individual.exception.NotFoundException;
-import at.ac.tuwien.sepm.assignment.individual.exception.ValidationException;
+import at.ac.tuwien.sepm.assignment.individual.exception.*;
 import at.ac.tuwien.sepm.assignment.individual.mapper.HorseMapper;
 import at.ac.tuwien.sepm.assignment.individual.persistence.HorseDao;
 import at.ac.tuwien.sepm.assignment.individual.service.HorseService;
@@ -35,6 +32,13 @@ public class HorseServiceImpl implements HorseService {
     this.mapper = mapper;
     this.validator = validator;
     this.ownerService = ownerService;
+  }
+
+  @Override
+  public HorseDetailDto create(HorseDetailDto newHorse) throws ValidationException, ConflictException, PersistenceLayerException {
+    LOG.trace("create({})", newHorse);
+    validator.validateForCreate(newHorse);
+    return mapper.entityToDetailDto(dao.createHorse(newHorse), ownerMapForSingleId(newHorse.ownerId()));
   }
 
   @Override

@@ -5,6 +5,7 @@ import at.ac.tuwien.sepm.assignment.individual.dto.HorseListDto;
 import at.ac.tuwien.sepm.assignment.individual.dto.HorseSearchDto;
 import at.ac.tuwien.sepm.assignment.individual.exception.ConflictException;
 import at.ac.tuwien.sepm.assignment.individual.exception.NotFoundException;
+import at.ac.tuwien.sepm.assignment.individual.exception.PersistenceLayerException;
 import at.ac.tuwien.sepm.assignment.individual.exception.ValidationException;
 import at.ac.tuwien.sepm.assignment.individual.service.HorseService;
 import java.lang.invoke.MethodHandles;
@@ -12,12 +13,7 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -38,6 +34,14 @@ public class HorseEndpoint {
     LOG.debug("request parameters: {}", searchParameters);
     // TODO We have the request params in the DTO now, but don't do anything with them yet…
     return service.allHorses();
+  }
+
+  @PostMapping
+  //  @RequestBody annotation is used to map the horse object
+  //  from the request body to the horse parameter of the method
+  public HorseDetailDto post(@RequestBody HorseDetailDto newHorseDTO) throws ValidationException, ConflictException, PersistenceLayerException {
+    LOG.info("POST" + BASE_PATH + newHorseDTO.name());
+    return service.create(newHorseDTO);
   }
 
   @GetMapping("{id}")

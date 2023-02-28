@@ -5,5 +5,7 @@
 DELETE FROM horse where id < 0;
 
 INSERT INTO horse (id, name, description, date_of_birth, sex)
-VALUES (-1, 'Wendy', 'The famous one!', '2012-12-12', 'FEMALE')
+VALUES (-1, 'Wendy', 'The famous one!', '2012-12-12', 'FEMALE'),
+       (-2, 'Hans', 'test', '2015-12-14', 'MALE'),
+       (-3, 'Gertrude', 'The calm one!', '2011-03-03', 'FEMALE')
 ;

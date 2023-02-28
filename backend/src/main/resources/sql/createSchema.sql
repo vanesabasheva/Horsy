@@ -15,3 +15,6 @@ CREATE TABLE IF NOT EXISTS horse
   sex ENUM('MALE', 'FEMALE') NOT NULL,
   owner_id BIGINT
 );
+
+
+
