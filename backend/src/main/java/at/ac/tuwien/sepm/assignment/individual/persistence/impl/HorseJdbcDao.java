@@ -74,6 +74,21 @@ public class HorseJdbcDao implements HorseDao {
   }
 
   @Override
+  public void deleteHorse(Long id) throws PersistenceLayerException {
+    LOG.trace("deleteHorse({}), persistence", id);
+    try {
+      KeyHolder keyHolder = new GeneratedKeyHolder();
+      jdbcTemplate.update(connection -> {
+        PreparedStatement stmt = connection.prepareStatement(SQL_DELETE, Statement.RETURN_GENERATED_KEYS);
+        stmt.setLong(1, id);
+        return stmt;
+      }, keyHolder);
+    } catch (DataAccessException e) {
+      throw new PersistenceLayerException("Internal Error occurred when deleting Horse", e);
+    }
+  }
+
+  @Override
   public List<Horse> getAll() {
     LOG.trace("getAll()");
     return jdbcTemplate.query(SQL_SELECT_ALL, this::mapRow);

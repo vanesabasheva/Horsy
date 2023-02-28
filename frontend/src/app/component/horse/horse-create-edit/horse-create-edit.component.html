@@ -116,6 +116,7 @@
     <button type="button"
             class="btn btn-danger"
             *ngIf="!modeIsCreate"
+            (click)="deleteHorse(horse.id)"
             >
       <i class="bi bi-trash"></i>
       Delete

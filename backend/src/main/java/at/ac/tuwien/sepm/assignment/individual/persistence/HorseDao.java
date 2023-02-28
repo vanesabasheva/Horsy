@@ -48,4 +48,6 @@ public interface HorseDao {
    * @throws PersistenceLayerException if there is an error in the persistence layer whilst creating a horse
    */
   Horse createHorse(HorseDetailDto newHorse) throws PersistenceLayerException;
+
+  void deleteHorse(Long id) throws PersistenceLayerException;
 }

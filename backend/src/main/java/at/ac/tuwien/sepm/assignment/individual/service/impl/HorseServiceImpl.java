@@ -42,6 +42,19 @@ public class HorseServiceImpl implements HorseService {
   }
 
   @Override
+  public void deleteHorse(Long id) throws NotFoundException, ServiceException {
+    LOG.trace("deleteHorse(), service");
+    try {
+      if (dao.getById(id) == null) {
+        throw new NotFoundException("Horse with id " + id + " was not found");
+      }
+      dao.deleteHorse(id);
+    } catch (PersistenceLayerException e) {
+      throw new ServiceException(e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Stream<HorseListDto> allHorses() {
     LOG.trace("allHorses()");
     var horses = dao.getAll();

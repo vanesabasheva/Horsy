@@ -3,10 +3,7 @@ package at.ac.tuwien.sepm.assignment.individual.rest;
 import at.ac.tuwien.sepm.assignment.individual.dto.HorseDetailDto;
 import at.ac.tuwien.sepm.assignment.individual.dto.HorseListDto;
 import at.ac.tuwien.sepm.assignment.individual.dto.HorseSearchDto;
-import at.ac.tuwien.sepm.assignment.individual.exception.ConflictException;
-import at.ac.tuwien.sepm.assignment.individual.exception.NotFoundException;
-import at.ac.tuwien.sepm.assignment.individual.exception.PersistenceLayerException;
-import at.ac.tuwien.sepm.assignment.individual.exception.ValidationException;
+import at.ac.tuwien.sepm.assignment.individual.exception.*;
 import at.ac.tuwien.sepm.assignment.individual.service.HorseService;
 import java.lang.invoke.MethodHandles;
 import java.util.stream.Stream;
@@ -34,6 +31,19 @@ public class HorseEndpoint {
     LOG.debug("request parameters: {}", searchParameters);
     // TODO We have the request params in the DTO now, but don't do anything with them yet…
     return service.allHorses();
+  }
+
+  @DeleteMapping("{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void deleteHorse(@PathVariable("id") Long id) {
+    LOG.info("DELETE" + BASE_PATH + "/{}", id);
+    try {
+      service.deleteHorse(id);
+    } catch (NotFoundException | ServiceException | PersistenceLayerException e){
+      HttpStatus status = HttpStatus.NOT_FOUND;
+      logClientError(status, e.getMessage(), e);
+      throw new ResponseStatusException(status, e.getMessage(), e);
+    }
   }
 
   @PostMapping

@@ -165,4 +165,31 @@ export class HorseCreateEditComponent implements OnInit {
       }
     });
   }
+  private deleteHorse(id: number) {
+    this.service.deleteHorse(id).subscribe({
+      next: data => {
+        this.notification.success(`Horse ${this.horse.name} successfully deleted`);
+        this.router.navigate(['/horses'], {state : {del: 'true'}}).then(r => {
+          if (!r) {
+            this.showError('Router failed');
+          }
+        });
+      },
+      error: error => {
+        console.error(error.message);
+        this.showError('Failed to delete horse: ' + error.error.message);
+      }
+    });
+  }
+
+  private showMessage(message: string): void {
+    // Add code to show a success message to the user, e.g., using a snackbar or toast notification
+    console.log(`Success: ${message}`);
+  }
+
+  private showError(message: string): void {
+    // Add code to show an error message to the user, e.g., using a snackbar or toast notification
+    console.error(`Error: ${message}`);
+  }
+
 }

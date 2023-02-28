@@ -2,10 +2,8 @@ package at.ac.tuwien.sepm.assignment.individual.service;
 
 import at.ac.tuwien.sepm.assignment.individual.dto.HorseDetailDto;
 import at.ac.tuwien.sepm.assignment.individual.dto.HorseListDto;
-import at.ac.tuwien.sepm.assignment.individual.exception.ConflictException;
-import at.ac.tuwien.sepm.assignment.individual.exception.NotFoundException;
-import at.ac.tuwien.sepm.assignment.individual.exception.PersistenceLayerException;
-import at.ac.tuwien.sepm.assignment.individual.exception.ValidationException;
+import at.ac.tuwien.sepm.assignment.individual.exception.*;
+
 import java.util.stream.Stream;
 
 /**
@@ -54,4 +52,6 @@ public interface HorseService {
    * @throws ConflictException if the data given for the horse is in conflict the data currently in the system
    */
   HorseDetailDto create(HorseDetailDto newHorse) throws ValidationException, ConflictException, PersistenceLayerException;
+
+  void deleteHorse(Long id) throws PersistenceLayerException, ServiceException, NotFoundException;
 }
