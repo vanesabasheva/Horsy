@@ -1,5 +1,5 @@
 {
-  "name": "e01234567",
+  "name": "e12119027",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -34,7 +34,6 @@
     "@angular-eslint/eslint-plugin-template": "14.1.2",
     "@angular-eslint/schematics": "14.1.2",
     "@angular-eslint/template-parser": "14.1.2",
-    "@angular/cli": "14.2.5",
     "@angular/compiler-cli": "14.2.5",
     "@angular/language-service": "14.2.5",
     "@typescript-eslint/eslint-plugin": "5.39.0",
